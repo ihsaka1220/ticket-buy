@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>演出门票抢购系统 - 演出详情</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/detail.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">演出票务</div>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="orders.html">我的订单</a>
+            </nav>
+            <div class="user-area" id="userArea">
+                <button class="btn btn-primary" onclick="showLoginModal()">登录</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="event-detail" id="eventDetail">
+                <!-- Event detail will be loaded here -->
+            </div>
+
+            <div class="ticket-selection" id="ticketSelection">
+                <!-- Ticket types will be loaded here -->
+            </div>
+
+            <div class="buy-section">
+                <div class="quantity-selector">
+                    <label>购买数量：</label>
+                    <button class="qty-btn" onclick="decreaseQty()">-</button>
+                    <input type="number" id="quantity" value="1" min="1" max="3" readonly>
+                    <button class="qty-btn" onclick="increaseQty()">+</button>
+                    <span class="qty-tip">（每人限购3张）</span>
+                </div>
+                <button class="btn btn-buy" id="buyBtn" onclick="buyTicket()">立即购买</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="hideLoginModal()">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 演出门票抢购系统 - 仅供学习使用</p>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>演出门票抢购系统 - 我的订单</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/orders.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">演出票务</div>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="orders.html" class="active">我的订单</a>
+            </nav>
+            <div class="user-area" id="userArea">
+                <button class="btn btn-primary" onclick="showLoginModal()">登录</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <h1 class="page-title">我的订单</h1>
+            <div class="order-list" id="orderList">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="hideLoginModal()">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 演出门票抢购系统 - 仅供学习使用</p>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/orders.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: ticket-buy-system
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/ticket_buy?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:ticket123}
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6380}
+      password: ${SPRING_DATA_REDIS_PASSWORD:redis123}
+      lettuce:
+        pool:
+          max-active: 200
+          max-idle: 50
+          min-idle: 10
+          max-wait: 3000ms
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+    consumer:
+      group-id: ticket-buy-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+  cache:
+    type: redis
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.ticketbuy.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# Alipay Configuration
+alipay:
+  app-id: ${ALIPAY_APP_ID:9021000162651598}
+  private-key: ${ALIPAY_PRIVATE_KEY:MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCHL51l7z9uiYyjsKQmrWrNiPq6QYvO5dy2gJ71I5Cqzduz7yRnR4TFm9v7jvB/8axRe3GgxblFzIOkbJsBpfuXR/5WguxyLXCnqeu582gz3TQLTnyw9KSEbxX7S5OhYl5imlUmQpI6phfTJbiO4CpUWg++GCx8ptl2MCdFsPNnnRHeUhc1qkPtCd1nI/4y1Op25Bmz2W+0V2sVpEkLaLM33pD9zaD5BbqjDfMxZtpVLLTN5hhM68dOocAjzx96tpRW8Yq4ePvQzpqyrWWZq/wUqwK+fXaFbpkEi7jRFKnnOunmKSIoGPuMXqyGN1JYWkG4dYNC/pnToDoNmj8XFot3AgMBAAECggEAHqAj2Vb1GNaifObkmTqKSpvwqUd2I94hPVswJ7rx6DAQyNexeJBUPOxNTtUYGPQoJKGBoXmJuo1VeWd9SkdPEvulW/X3GPrAXct58rt47N79Dl6ukuwpZTNBWJfLjzEYzt/F0JAeTpkYJqaSBBQ2ortwe5FAatDlzQelrf0jd2Jivdb1LKTSnHOb1R73ean2X/SxnnAFeKuyzbtVmsIsDDJOM7XPjjDf6o1B1VVxPgMUZVL4L+n5UGuA2PNHHYNmshs/oHzsy+o9BhHExyxNubKXiayn4PNUXcyvY0iAliKfPDoTze0MGgvmSh7Oqtd9yf8YLx35hvL8Nx5yx8fksQKBgQC+CnAHdSpExDiz+25ny/zq8yvJ+5GYqGUSMWPYMuzt6oOGrrxhCZPjsQ/krlUIaAy0VlG0MsZ0S+fjqHrPJwurH5gDqryGva2/ONwcZYu8lxSMJRyCIC9XQbBoNCYocqr24yK+leUOtVhZz7j4IVdrJNtDWOuhup4yhtb99LnJDwKBgQC2GzQRGo7NvNK+Q1SslP6WE+sL2dc/cDWIghIANzwu/hpSd/dqdJWMDbcmEoXVzEonHjAiUufMh38pvN237HHi5Y1UKIEahQgvLt4mydvZPga5s9e6n148e5M841oiyGRWJEw0FciA7zuzQOXUG8Pf8rbi6/Nnd/Qp3yvHy2WHGQKBgQC2lqKyl6Dn9zufuaiHM9eqCb99ziZCbTDGvQt4Mt2vbU23fnViKmicMIfbqJ/sdsQWFIVlxA8mt7Nx6XMtSw+L98v/YfDG6MFh44igA/SxWtsUF6f/Ylr51BRg2hH7dMjMcsj0ImK0sgnUKJ9IUAiE2iGM4IdsmTfbxfAUiihigwKBgEHX9Ct6/sdEzq4cijEcbjC1YvcV/M3jNHf3D6skTY5wMfQ/jCXhoXDSRLZvXBTBmM4sDBtc/pLlKwVcVI5733G6ri8Pth5wm1T0DT7ZHbSeyK+8ZvQDS39y7vnE+oI5Eo5S8Xqjpat41I0rme3nXBtNFvNVfNyccpvxJVNIJ52BAoGBAJkC49wFCSUPrvZU7FI/UjzSJrQ4RSEqza8dFqyAqKyRHTfTTbIWIlTPJMpm3VwZuUPnlGRQNiHgDa4hY4t73wXVe5Rl6Kbb1pFLfQe6zMntANGSAF8JN5SjDRQ1PbM2ooOPH/loUVHmgTASnAcUYee+3D0ophx54MNwI3nOShqA}
+  public-key: ${ALIPAY_PUBLIC_KEY:MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvuZVo/7IMAx1FqBsiJazejNrnXqUBG3dDFZcfCtBgblFr48uypJ39AdLcocebHpG45ce5n+xK/bKu664koDFBzx6OW7zT7aTVoSYWGH9gEAfDsh2IGkVAXWswFiMg5oVXDope9z4A11jqQscx8kClSAfUVesPX7TJpxSVd+0Zzbr1+qywCLE94r7ivDr8jQgiRXfAe/I/1H9HX3O05aRDq2j0B9wZe2zFEP0H3gYSwgVGfv5j+4jCOrSwRvBdYAA+glbSO1dzSA+dljdKs7ky0PoxZCYDINhck870CkgTKwv8jGj4rG/opXwaMnNIyTbYNVlRK3xIxImc4HxlHyM7wIDAQAB}
+  gateway: ${ALIPAY_GATEWAY:https://openapi-sandbox.dl.alipaydev.com/gateway.do}
+  notify-url: ${ALIPAY_NOTIFY_URL:http://qf47df9c.natappfree.cc/api/pay/callback}
+  return-url: ${ALIPAY_RETURN_URL:http://qf47df9c.natappfree.cc/order-result}
+  sign-type: RSA2
+  charset: UTF-8
+  format: json
+  # 模拟支付模式（没有真实支付宝配置时使用）
+  mock-mode: ${ALIPAY_MOCK_MODE:false}
+
+# Custom Configuration
+ticket:
+  max-buy-per-user: 3
+  order-timeout-minutes: 15
+  cache:
+    l1-ttl: 300
+    l2-ttl: 3600
+    null-value-ttl: 120
+  rate-limit:
+    global-window: 60
+    global-max: 10000
+    ip-window: 60
+    ip-max: 100
+    user-window: 60
+    user-max: 20
+
+logging:
+  level:
+    com.ticketbuy: DEBUG
+    org.springframework.kafka: INFO

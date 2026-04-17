@@ -1,0 +1,104 @@
+/* Orders Page */
+.page-title {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+}
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.order-no {
+    color: #666;
+    font-size: 14px;
+}
+
+.order-content {
+    display: flex;
+    gap: 20px;
+}
+
+.order-event-info {
+    flex: 1;
+}
+
+.order-event-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.order-ticket-info {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.order-amount {
+    text-align: right;
+}
+
+.order-total {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+.order-total span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.order-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.order-time {
+    color: #999;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.empty-orders {
+    text-align: center;
+    padding: 100px 0;
+    color: #999;
+}
+
+.empty-orders i {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .order-content {
+        flex-direction: column;
+    }
+
+    .order-amount {
+        text-align: left;
+    }
+}
